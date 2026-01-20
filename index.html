@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 For You</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  font-family: 'Baloo 2', cursive;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #ffd6e8;
+  background-image:
+    radial-gradient(#fff 12%, transparent 13%);
+  background-size: 60px 60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart {
+  position: absolute;
+  font-size: 18px;
+  animation: float 8s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+
+.container {
+  width: 90%;
+  max-width: 360px;
+  z-index: 2;
+}
+
+.card {
+  display: none;
+  background: rgba(255,255,255,0.95);
+  border-radius: 28px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,.15);
+  animation: pop .4s ease;
+}
+
+.card.active { display: block; }
+
+h1,h2 {
+  color: #ff6f91;
+  margin: 10px 0;
+}
+
+p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.big {
+  font-size: 70px;
+  margin: 15px 0;
+}
+
+button {
+  border: none;
+  background: #ff8fab;
+  color: white;
+  padding: 11px 20px;
+  border-radius: 22px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 6px;
+}
+
+button.green { background: #6fcf97; }
+
+button:hover { transform: scale(1.05); }
+
+.cake {
+  font-size: 80px;
+  cursor: pointer;
+}
+
+@keyframes pop {
+  from { transform: scale(.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c8b94b07e.mp3" type="audio/mpeg">
+</audio>
+
+<div id="hearts"></div>
+
+<div class="container">
+
+<!-- PAGE 1 -->
+<div class="card active" id="p1">
+  <div class="big">💌</div>
+  <h2>Do you want to open it?</h2>
+  <p>( ˶ˆ꒳ˆ˵ )</p>
+  <button onclick="start(2)">Open it</button>
+  <button class="green" onclick="start(3)">No ty</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="card" id="p3">
+  <div class="big">🥺</div>
+  <p>Awh… let’s try again, please?</p>
+  <button onclick="go(1)">Again?</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="card" id="p2">
+  <div class="big">🐻🐰</div>
+  <h1>Happy Valentine’s Day!</h1>
+  <p>my love! (｡♥‿♥｡)</p>
+  <button onclick="go(4)">Next ➜</button>
+</div>
+
+<!-- PAGE 4 CAKE -->
+<div class="card" id="p4">
+  <h2>Cut the cake 🎂</h2>
+  <p>( tap it )</p>
+  <div class="cake" onclick="cutCake()">🎂</div>
+</div>
+
+<!-- PAGE 5 MESSAGE -->
+<div class="card" id="p5">
+  <h2>Hello my love</h2>
+  <p>
+    You are the most beautiful part of my life.  
+    Every moment with you feels warm and special.  
+    Thank you for being my safe place, my happiness,  
+    and my favorite person in the world.  
+
+    <br><br>
+    I love you endlessly 💖
+  </p>
+  <button onclick="go(1)">Start Over ♡</button>
+</div>
+
+</div>
+
+<script>
+const music = document.getElementById("music");
+
+function start(n) {
+  music.play();
+  go(n);
+}
+
+function go(n) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  document.getElementById('p' + n).classList.add('active');
+}
+
+function cutCake() {
+  document.querySelector('.cake').innerText = '🍰';
+  setTimeout(() => go(5), 700);
+}
+
+/* floating hearts */
+for (let i = 0; i < 20; i++) {
+  const h = document.createElement('div');
+  h.className = 'heart';
+  h.innerText = '🍓';
+  h.style.left = Math.random()*100 + 'vw';
+  h.style.animationDuration = 5 + Math.random()*5 + 's';
+  document.getElementById('hearts').appendChild(h);
+}
+</script>
+
+</body>
+</html>
